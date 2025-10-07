@@ -1,0 +1,13 @@
+torch
+torchvision
+pandas
+Pillow
+setuptools
+transformers
+numpy
+matplotlib
+seaborn
+tqdm
+PyYAML
+requests
+python-box
