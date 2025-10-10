@@ -4,6 +4,7 @@ import zipfile
 from box import ConfigBox
 import requests
 import yaml
+import torch
 from src.utils.logging_setup import logger
 
 def read_yaml_file(file_path: str)-> ConfigBox:
@@ -85,3 +86,58 @@ def extract_zip(zip_path: str, extract_to: str) -> bool:
         except Exception as e:
             logger.error(f"Error extracting {zip_path}: {e}")
             return False
+        
+    
+
+  
+import torch
+from src.utils.logging_setup import logger
+
+def calculate_iou(preds: torch.Tensor, targets: torch.Tensor, num_classes: int) -> float:
+    """
+    Calculate Mean Intersection over Union (mIoU) for multi-class segmentation.
+
+    Args:
+        preds (torch.Tensor): Predicted class indices tensor (B,H,W).
+        targets (torch.Tensor): Ground truth class indices tensor (B,H,W).
+        num_classes (int): Number of segmentation classes.
+
+    Returns:
+        float: Mean IoU over all classes.
+    """
+    preds = preds.flatten()
+    targets = targets.flatten()
+
+    mask = (targets != 255)  # Ignore index mask
+    preds = preds[mask]
+    targets = targets[mask]
+
+    if preds.numel() == 0:
+        logger.warning("No valid pixels (excluding ignore index 255) to calculate IoU.")
+        return 0.0
+
+    intersection = torch.zeros(num_classes, dtype=torch.float32, device=preds.device)
+    union = torch.zeros(num_classes, dtype=torch.float32, device=preds.device)
+
+    for cls in range(num_classes):
+        pred_mask = (preds == cls)
+        target_mask = (targets == cls)
+
+        inter = (pred_mask & target_mask).sum().float()
+        uni = (pred_mask | target_mask).sum().float()
+
+        intersection[cls] = inter
+        union[cls] = uni
+
+        if uni == 0:
+            # No ground truth or prediction for this class - avoid divide by zero warning
+            logger.debug(f"Class {cls} has zero union; skipping in IoU calculation.")
+
+    iou_per_class = intersection / (union + 1e-6)  # prevent division by zero
+    mean_iou = iou_per_class.mean().item()
+
+    logger.debug(f"IoU per class: {iou_per_class.cpu().tolist()}")
+    logger.info(f"Mean IoU calculated: {mean_iou:.4f}")
+
+    return mean_iou
+
