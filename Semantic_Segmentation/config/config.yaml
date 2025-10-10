@@ -1,0 +1,13 @@
+data_ingestion:
+  kaggle_json_path: "kaggle.json"
+  extract_dir: "data/cityscapes"
+  source_URL: "shuvoalok/cityscapes"
+  dest_dir: "data/"
+  zip_file_name: "cityscapes.zip"
+  unzip: true
+
+model_trainer:
+  chehckpoint_dir: "model/checkpoints"
+
+metric_logger:
+  log_dir: "model/evaluation"
