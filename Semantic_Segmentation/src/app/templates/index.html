@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Semantic Segmentation</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Semantic Segmentation Predictor</h1>
+
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <div class="flash-message">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+
+      <div class="upload-form">
+        <h2>Upload an Image for Segmentation</h2>
+        <p>Supported formats: PNG, JPG, JPEG</p>
+        <form
+          method="POST"
+          action="{{ url_for('main.predict') }}"
+          enctype="multipart/form-data"
+        >
+          <div class="upload-controls">
+            <input
+              type="file"
+              name="file"
+              accept=".png, .jpg, .jpeg"
+              required
+            />
+            <button type="submit">Get Prediction</button>
+          </div>
+        </form>
+      </div>
+
+      {% if prediction_success %}
+      <h2>Prediction Results</h2>
+      <div class="image-container">
+        <div class="image-box">
+          <h4>Original Image</h4>
+          <img src="{{ original_img_b64 }}" alt="Original Image" />
+        </div>
+        <div class="image-box">
+          <h4>Segmentation Mask</h4>
+          <img src="{{ mask_img_b64 }}" alt="Predicted Mask" />
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

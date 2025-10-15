@@ -1,0 +1,128 @@
+/* static/style.css */
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #17a2b8; /* Info blue */
+  text-align: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #495057;
+  margin-top: 30px;
+  border-left: 5px solid #17a2b8;
+  padding-left: 10px;
+}
+
+/* --- Upload Form Styling --- */
+.upload-form {
+  margin-bottom: 40px;
+  border: 2px dashed #17a2b8;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #e8f8fa; /* Light blue background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-form p {
+  color: #6c757d;
+}
+
+.upload-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.upload-form input[type="file"] {
+  border: 1px solid #ced4da;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.upload-form button {
+  padding: 10px 25px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.upload-form button:hover {
+  background-color: #117a8b;
+}
+
+.upload-form button:active {
+  transform: scale(0.98);
+}
+
+/* --- Message & Results Styling --- */
+.flash-message {
+  padding: 15px;
+  background-color: #fff3cd; /* Warning yellow */
+  color: #856404;
+  border: 1px solid #ffeeba;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.image-box {
+  flex-basis: 48%; /* Adjust for spacing */
+  min-width: 300px;
+  border: 1px solid #e9ecef;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.image-box h4 {
+  color: #495057;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1em;
+}
+
+.image-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
