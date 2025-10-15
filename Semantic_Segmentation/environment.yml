@@ -1,0 +1,38 @@
+# environment.yaml
+
+name: semantic-segmentation-app
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  # Python
+  - python=3.10.13 # Recommended stable version
+
+  # Core Deep Learning Libraries
+  - pytorch=2.1.0 # Or the specific version you trained with
+  - torchvision=0.16.0
+  - torchaudio=2.1.0
+  - cpuonly # Use this line for CPU-only deployment
+  # - pytorch-cuda=11.8 # UNCOMMENT THIS LINE if you need GPU support and trained with CUDA 11.8
+
+  # Data Handling & Utilities
+  - numpy=1.26.1
+  - pandas=2.1.3
+  - pillow=10.1.0 # Required for PIL/Image handling
+  - matplotlib=3.8.1 # Required for MetricLogger.py plotting
+  - tqdm=4.66.1
+  - pyyaml=6.0.1
+  - box=7.1.1 # Used by src/utils/helpers.py for ConfigBox
+
+  # Web Application (Flask)
+  - flask=2.3.3
+  - werkzeug=3.0.1 # Flask dependency
+
+  # Other Dependencies
+  - pip
+  - pip:
+      # Project-specific internal packages might not be needed here if your classes are local imports,
+      # but if you use custom libraries, list them here.
+      - opencv-python
+      - protobuf
